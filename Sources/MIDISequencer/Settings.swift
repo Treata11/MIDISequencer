@@ -5,7 +5,6 @@
 //  Created by Treata Norouzi on 12/28/23.
 //
 
-import Cocoa
 import AVFoundation
 
 class Settings {

@@ -5,8 +5,6 @@
 //  Created by Treata Norouzi on 12/28/23.
 //
 
-import Cocoa
-
 // Taken from https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance#Swift
 // and modified for Swift 4
 

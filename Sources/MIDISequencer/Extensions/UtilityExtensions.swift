@@ -5,9 +5,12 @@
 //  Created by Treata Norouzi on 12/28/23.
 //
 
-import Cocoa
 import AVFoundation
+#if canImport(AppKit)
+import AppKit
+#endif
 
+#if os(macOS)
 extension NSAlert {
     class func runModal(title: String, message: String, style: NSAlert.Style) {
         let alert = NSAlert()
@@ -18,6 +21,7 @@ extension NSAlert {
         alert.runModal()
     }
 }
+#endif
 
 extension String {
     func fullRange() -> NSRange {
@@ -31,11 +35,13 @@ extension String {
         return attrString
     }
 
+    #if os(macOS)
     func addColor(in range: NSRange, color: NSColor) -> NSAttributedString {
         let attrString = NSMutableAttributedString(string: self)
         attrString.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
         return attrString
     }
+    #endif
 }
 
 // This extension makes it possible to throw raw strings as Errors
@@ -43,6 +49,7 @@ extension String: LocalizedError {
     public var errorDescription: String? { return self }
 }
 
+#if os(macOS)
 extension NSMutableAttributedString {
     func setFontFace(font: NSFont, color: NSColor? = nil) {
         beginEditing()
@@ -63,6 +70,7 @@ extension NSMutableAttributedString {
         endEditing()
     }
 }
+#endif
 
 extension Float {
     func rounded(toDecimalPlaces places: Int) -> Float {
@@ -71,12 +79,14 @@ extension Float {
     }
 }
 
+#if os(macOS)
 extension NSWindow {
     var titlebarHeight: CGFloat {
         let contentHeight = self.contentRect(forFrameRect: self.frame).height
         return self.frame.height - contentHeight
     }
 }
+#endif
 
 extension AVAudioFormat {
     var commonFormat: AVAudioCommonFormat {

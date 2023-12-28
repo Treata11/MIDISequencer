@@ -5,7 +5,6 @@
 //  Created by Treata on 12/28/23.
 //
 
-import Cocoa
 import AVFoundation
 import MediaPlayer
 
@@ -182,6 +181,7 @@ public class MIDIPlayer: AVMIDIPlayer {
         self.delegate = nil
     }
 
+
     public func timerDidFire(_ timer: Timer) {
         guard timer == self.progressTimer, timer.isValid else {
             return
@@ -202,6 +202,7 @@ public class MIDIPlayer: AVMIDIPlayer {
 
         self.delegate?.filesLoaded(midi: self.currentMIDI!, soundFont: self.currentSoundfont)
     }
+
 
     public override func play(_ completionHandler: AVMIDIPlayerCompletionHandler? = nil) {
         guard self.acceptsMediaKeys else {
@@ -241,6 +242,7 @@ public class MIDIPlayer: AVMIDIPlayer {
     }
 
     // cheap, but it works. mostly
+
     public func pause() {
         guard self.acceptsMediaKeys else {
             return
@@ -254,6 +256,7 @@ public class MIDIPlayer: AVMIDIPlayer {
 
         self.delegate?.playbackStopped(paused: true)
     }
+
 
     public override func stop() {
         guard self.acceptsMediaKeys else {
@@ -289,14 +292,14 @@ public class MIDIPlayer: AVMIDIPlayer {
         self.currentPosition = newPos
     }
 
-    public func togglePlayPause() {
+    public func togglePlayPause() async {
         guard self.acceptsMediaKeys else {
             print("Doesn't accept media keys")
             return
         }
 
         if self.isPaused || self.isAtEndOfTrack {
-            self.play()
+            await self.play()
         } else if self.isPlaying {
             self.pause()
         } else {

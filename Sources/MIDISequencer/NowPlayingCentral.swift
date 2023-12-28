@@ -5,7 +5,6 @@
 //  Created by Treata Norouzi on 12/28/23.
 //
 
-import Cocoa
 import MediaPlayer
 
 class NowPlayingCentral: NSObject {
@@ -125,11 +124,14 @@ class NowPlayingCentral: NSObject {
             MPNowPlayingInfoPropertyElapsedPlaybackTime: NSNumber(value: midiPlayer.currentPosition)
         ]
 
+        /*
+         MARK: macOS 
         if #available(OSX 10.13.2, *) {
             nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: CGSize(width: 800, height: 800), requestHandler: { (_) -> NSImage in
                 return NSImage(named: "AlbumArt")!
             })
         }
+         */
 
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
 
@@ -182,11 +184,11 @@ class NowPlayingCentral: NSObject {
         return .noActionableNowPlayingItem
     }
 
-    @objc func togglePlayPauseCommand(event: MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
+    @objc func togglePlayPauseCommand(event: MPRemoteCommandEvent) async -> MPRemoteCommandHandlerStatus {
         print("Play/Pause command")
 
         if let activePlayer = self.activePlayer, !Settings.shared.cacophonyMode {
-            activePlayer.togglePlayPause()
+            await activePlayer.togglePlayPause()
             return .success
         }
         return .noActionableNowPlayingItem

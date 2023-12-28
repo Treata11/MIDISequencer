@@ -5,9 +5,9 @@
 //  Created by Treata on 12/28/23.
 //
 
-import Cocoa
 import AVFoundation
 
+/*
 public class MIDIFilePresenter: NSObject, NSFilePresenter {
     private var midiPath: URL!
     private var soundfontPath: URL?
@@ -39,9 +39,11 @@ public class MIDIFilePresenter: NSObject, NSFilePresenter {
         return OperationQueue.main
     }
 }
+*/
 
 // MARK: - MIDIDocument
 
+/*
 public class MIDIDocument: NSDocument {
 
     public var midiPresenter: MIDIFilePresenter!
@@ -91,3 +93,4 @@ public class MIDIDocument: NSDocument {
         super.close()
     }
 }
+*/
