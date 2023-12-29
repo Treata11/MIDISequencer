@@ -7,6 +7,7 @@
 
 import MediaPlayer
 
+@available(iOS 13.0, *)
 class NowPlayingCentral: NSObject {
 
     static let shared = NowPlayingCentral()
