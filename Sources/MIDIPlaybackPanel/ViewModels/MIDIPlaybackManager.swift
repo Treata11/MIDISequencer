@@ -33,10 +33,10 @@ import MIDISequencer
           }
       }
       
-      deinit {
-          print("MIDIPlaybackManager deinitialized!")
-          currentPositionTimer?.invalidate()
-      }
+    deinit {
+        print("MIDIPlaybackManager deinitialized!")
+        currentPositionTimer?.invalidate()
+    }
     
     // MARK: Computed Properties
     
@@ -55,11 +55,11 @@ import MIDISequencer
     }
      */
     
-    var isPaused: Bool {
+    public var isPaused: Bool {
         midiPlayer.isPaused
     }
     
-    var isPlaying: Bool {
+    public var isPlaying: Bool {
         midiPlayer.isPlaying
     }
     
@@ -83,16 +83,24 @@ import MIDISequencer
         midiPlayer.pause()
     }
     
-    func togglePlayback() {
+    public func togglePlayback() {
         midiPlayer.togglePlayPause()
     }
     
-    func seek(to time: TimeInterval) {
+    public func seek(to time: TimeInterval) {
         midiPlayer.seek(to: time)
+    }
+    
+    public func rewind(_ seconds: TimeInterval) {
+        midiPlayer.rewind(secs: seconds)
+    }
+    
+    public func fastForward(_ seconds: TimeInterval) {
+        midiPlayer.fastForward(secs: seconds)
     }
 }
 
-// MARK: - Extension(s)
+// MARK: - MIDIPlaybackManager Extension(s)
 
 @available(iOS 17.0, macOS 14.0, *)
 extension MIDIPlaybackManager: Equatable {

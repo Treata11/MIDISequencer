@@ -180,6 +180,7 @@ struct MusicSlider<T: BinaryFloatingPoint, S: ShapeStyle>: View {
     
     @State private var localRealProgress: T = 0
     @State private var localTempProgress: T = 0
+    // TODO: Implement isHovering 
     
     @GestureState private var isActive: Bool = false
     
@@ -192,7 +193,7 @@ struct MusicSlider<T: BinaryFloatingPoint, S: ShapeStyle>: View {
         activeFillColor: S,
         fillColor: S,
         emptyColor: S,
-        height: CGFloat = 44
+        height: CGFloat = 47
     ) {
         self.viewModel = viewModel
         self._value = value
@@ -207,6 +208,8 @@ struct MusicSlider<T: BinaryFloatingPoint, S: ShapeStyle>: View {
         GeometryReader { bounds in
             ZStack {
                 VStack {
+                    timers
+                    
                     ZStack(alignment: .center) {
                         // Acts as the background of the slider
                         Capsule()
@@ -227,8 +230,6 @@ struct MusicSlider<T: BinaryFloatingPoint, S: ShapeStyle>: View {
                                 }
                             })
                     }
-                    // MARK: Timers
-                    timers
                 }
                 .frame(width: isActive ? bounds.size.width * 1.03 : bounds.size.width, alignment: .center)
                 .animation(animation, value: isActive)
