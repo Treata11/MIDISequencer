@@ -1,18 +1,22 @@
-//
-//  PlaybackPanel.swift
-//
-//
-//  Created by Treata Norouzi on 12/28/23.
-//
+/*
+ PlaybackPanel.swift
+
+
+ Created by Treata Norouzi on 12/28/23.
+ 
+ Abstract:
+ An iOS music.app like playback panel to manage the playing midi files.
+*/
 
 import SwiftUI
 
-public struct PlaybackPanel: View {
+@available(macOS 14.0, *)
+public struct MIDIPlaybackPanel: View {
     @Bindable var viewModel: MIDIPlaybackManager
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
-    var body: some View {
+    public var body: some View {
         GeometryReader { geometry in
             RoundedRectangle(cornerRadius: 18)
                 .foregroundStyle(.ultraThinMaterial)
@@ -79,8 +83,9 @@ public struct PlaybackPanel: View {
     }
 }
 
-#Preview("PlaybackPanel") {
+@available(macOS 14.0, *)
+#Preview("MIDIPlaybackPanel") {
     @Bindable var manager = MIDIPlaybackManager.previews!
     
-    return PlaybackPanel(viewModel: manager)
+    return MIDIPlaybackPanel(viewModel: manager)
 }

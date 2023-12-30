@@ -9,11 +9,11 @@
 */
 
 import Foundation
-import MIDISequencer
 import Combine
 
-@Observable class MIDIPlaybackManager: Identifiable {
-    var midiPlayer: MIDIPlayer
+@available(macOS 14.0, *)
+@Observable public class MIDIPlaybackManager: Identifiable {
+    public var midiPlayer: MIDIPlayer
 
     var currentPosition: TimeInterval = 0
     
@@ -21,7 +21,9 @@ import Combine
     
     init(midiPlayer: MIDIPlayer) {
         self.midiPlayer = midiPlayer
+        
         startUpdatingCurrentPosition()
+        prepareToPlay()
     }
     
     private func startUpdatingCurrentPosition() {
@@ -31,6 +33,7 @@ import Combine
       }
       
       deinit {
+          print("MIDIPlaybackManager deinitialized!")
           currentPositionTimer?.invalidate()
       }
     
@@ -63,23 +66,13 @@ import Combine
         midiPlayer.isAtEndOfTrack
     }
     
-//    private func updateCurrentPosition() {
-//        guard currentPosition <= duration else {
-//            pause()
-//            return
-//        }
-//        // Increment the current position based on the `refresh rate`
-//        currentPosition += 0.1
-//    }
-    
     // MARK: Intent(s)
     
-//    func prepareToPlay() {
-//        midiPlayer.prepareToPlay()
-//    }
+    func prepareToPlay() {
+        midiPlayer.prepareToPlay()
+    }
     
     func play() {
-        midiPlayer.prepareToPlay()
         midiPlayer.play {
              
         }
@@ -98,14 +91,20 @@ import Combine
     }
 }
 
+// MARK: - Extension(s)
+
+@available(macOS 14.0, *)
 extension MIDIPlaybackManager: Equatable {
-    static func == (lhs: MIDIPlaybackManager, rhs: MIDIPlaybackManager) -> Bool {
+    public static func == (lhs: MIDIPlaybackManager, rhs: MIDIPlaybackManager) -> Bool {
         return lhs.midiPlayer == rhs.midiPlayer
     }
 }
 
-extension MIDIPlaybackManager {
-    public static var previews: MIDIPlaybackManager? {
+
+@available(macOS 14.0, *)
+public extension MIDIPlaybackManager {
+    static var previews: MIDIPlaybackManager? {
+        // FIXME: - Bundle url isn't available in packages
         let midiUrl = Bundle.main.url(forResource: "Interstellar", withExtension: "mid")!
         let soundBank = Bundle.main.url(forResource: "YDP-GrandPiano-20160804", withExtension: "sf2")
         
@@ -118,3 +117,4 @@ extension MIDIPlaybackManager {
         return nil
     }
 }
+
