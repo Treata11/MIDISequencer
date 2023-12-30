@@ -16,7 +16,7 @@ import MIDISequencer
 @Observable public class MIDIPlaybackManager: Identifiable {
     public var midiPlayer: MIDIPlayer
 
-    var currentPosition: TimeInterval = 0
+    public var currentPosition: TimeInterval = 0
     
     private var currentPositionTimer: Timer?
     
@@ -44,7 +44,7 @@ import MIDISequencer
         midiPlayer.realDuration
     }
     
-    var realPosition: TimeInterval {
+    public var realPosition: TimeInterval {
         midiPlayer.realPosition
     }
     

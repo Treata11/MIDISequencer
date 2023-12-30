@@ -86,6 +86,7 @@ public struct MIDIPlaybackPanel: View {
     }
 }
 #else
+@available(macOS 14.0, *)
 public struct MIDIPlaybackPanel: View {
     @Bindable var viewModel: MIDIPlaybackManager
     

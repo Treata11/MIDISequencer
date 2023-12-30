@@ -15,6 +15,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "MIDISequencer",
+            type: .static,
             targets: ["MIDISequencer", "MIDIPlaybackPanel"]),
     ],
     targets: [
@@ -23,7 +24,9 @@ let package = Package(
         .target(
             name: "MIDISequencer"),
         .target(
-            name: "MIDIPlaybackPanel"),
+            name: "MIDIPlaybackPanel",
+        dependencies: ["MIDISequencer"]
+        ),
         .testTarget(
             name: "MIDISequencerTests",
             dependencies: ["MIDISequencer"]),
