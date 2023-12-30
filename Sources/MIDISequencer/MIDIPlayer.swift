@@ -28,7 +28,7 @@ protocol MIDIPlayerDelegate: AnyObject {
  > This class provides support for MIDI playback and additional features such as handling soundfonts, playback control, and delegation.
  */
 @available(iOS 13.0, *)
-public class MIDIPlayer: AVMIDIPlayer {
+public class MIDIPlayer: AVMIDIPlayer, Identifiable {
     
     // MARK: Properties
     
@@ -274,6 +274,15 @@ public class MIDIPlayer: AVMIDIPlayer {
 
         self.delegate?.playbackStopped(paused: false)
     }
+    
+    public func seek(to time: TimeInterval) {
+        guard self.acceptsMediaKeys else {
+            return
+        }
+        
+        let newPos = min(time, self.duration)
+        self.currentPosition = newPos
+    }
 
     public func rewind(secs: TimeInterval) {
         guard self.acceptsMediaKeys else {
@@ -293,14 +302,14 @@ public class MIDIPlayer: AVMIDIPlayer {
         self.currentPosition = newPos
     }
 
-    public func togglePlayPause() async {
+    public func togglePlayPause() {
         guard self.acceptsMediaKeys else {
             print("Doesn't accept media keys")
             return
         }
 
         if self.isPaused || self.isAtEndOfTrack {
-            await self.play()
+            self.play()
         } else if self.isPlaying {
             self.pause()
         } else {
