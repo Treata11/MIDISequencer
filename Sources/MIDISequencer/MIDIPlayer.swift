@@ -27,7 +27,7 @@ protocol MIDIPlayerDelegate: AnyObject {
 
  > This class provides support for MIDI playback and additional features such as handling soundfonts, playback control, and delegation.
  */
-@available(iOS 13.0, *)
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 public class MIDIPlayer: AVMIDIPlayer, Identifiable {
     
     // MARK: Properties
