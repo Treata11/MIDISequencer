@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-@available(macOS 14.0, *)
+@available(iOS 17.0, macOS 14.0, *)
 struct MusicSlider<T: BinaryFloatingPoint, S: ShapeStyle>: View {
     @Bindable var viewModel: MIDIPlaybackManager
     
@@ -118,7 +118,6 @@ struct MusicSlider<T: BinaryFloatingPoint, S: ShapeStyle>: View {
                     localRealProgress = getPrgPercentage(newValue)
                 }
             }
-            .onChange(of: value, {print(value)})
         }
         .padding(.horizontal)
         .frame(height: isActive ? height * 1.13 : height, alignment: .center)
@@ -156,7 +155,7 @@ struct MusicSlider<T: BinaryFloatingPoint, S: ShapeStyle>: View {
     }
 }
 
-@available(macOS 14.0, *)
+@available(iOS 17.0, macOS 14.0, *)
 #Preview("MusicSlider") {
     @Bindable var viewModel = MIDIPlaybackManager.previews!
     

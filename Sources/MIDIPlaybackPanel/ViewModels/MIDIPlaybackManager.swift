@@ -10,8 +10,9 @@
 
 import Foundation
 import Combine
+import MIDISequencer
 
-@available(macOS 14.0, *)
+@available(iOS 17.0, macOS 14.0, *)
 @Observable public class MIDIPlaybackManager: Identifiable {
     public var midiPlayer: MIDIPlayer
 
@@ -19,7 +20,7 @@ import Combine
     
     private var currentPositionTimer: Timer?
     
-    init(midiPlayer: MIDIPlayer) {
+    public init(midiPlayer: MIDIPlayer) {
         self.midiPlayer = midiPlayer
         
         startUpdatingCurrentPosition()
@@ -93,15 +94,14 @@ import Combine
 
 // MARK: - Extension(s)
 
-@available(macOS 14.0, *)
+@available(iOS 17.0, macOS 14.0, *)
 extension MIDIPlaybackManager: Equatable {
     public static func == (lhs: MIDIPlaybackManager, rhs: MIDIPlaybackManager) -> Bool {
         return lhs.midiPlayer == rhs.midiPlayer
     }
 }
 
-
-@available(macOS 14.0, *)
+@available(iOS 17.0, macOS 14.0, *)
 public extension MIDIPlaybackManager {
     static var previews: MIDIPlaybackManager? {
         // FIXME: - Bundle url isn't available in packages

@@ -10,21 +10,24 @@
 
 import SwiftUI
 
-@available(macOS 14.0, *)
+#if os(iOS)
+@available(iOS 17.0, macOS 14.0, *)
 public struct MIDIPlaybackPanel: View {
     @Bindable var viewModel: MIDIPlaybackManager
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
+    public init(viewModel: MIDIPlaybackManager) {
+        self.viewModel = viewModel
+    }
+    
     public var body: some View {
-        GeometryReader { geometry in
+        ZStack {
             RoundedRectangle(cornerRadius: 18)
                 .foregroundStyle(.ultraThinMaterial)
-                .overlay {
-                    playbackSlider
-                    playbackManager.offset(y: +40)
-                }
-            .padding(.horizontal)
+            playbackSlider
+            playbackManager.offset(y: +40)
+                .padding(.horizontal)
         }
         .frame(minWidth: 350, maxWidth: 450, minHeight: 150, maxHeight: 170)
     }
@@ -44,7 +47,7 @@ public struct MIDIPlaybackPanel: View {
     }
     
     var playbackManager: some View {
-        ZStack(alignment: .center) {
+        ZStack {
             rewind.offset(x: -50)
             playButton
             fastForward.offset(x: 50)
@@ -82,8 +85,23 @@ public struct MIDIPlaybackPanel: View {
         .scaleEffect(1.3)
     }
 }
+#else
+public struct MIDIPlaybackPanel: View {
+    @Bindable var viewModel: MIDIPlaybackManager
+    
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    
+    public init(viewModel: MIDIPlaybackManager) {
+        self.viewModel = viewModel
+    }
+    
+    public var body: some View {
+        EmptyView()
+    }
+}
+#endif
 
-@available(macOS 14.0, *)
+@available(iOS 17.0, macOS 14.0, *)
 #Preview("MIDIPlaybackPanel") {
     @Bindable var manager = MIDIPlaybackManager.previews!
     
